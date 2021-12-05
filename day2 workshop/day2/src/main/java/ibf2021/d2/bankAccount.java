@@ -7,21 +7,21 @@ import java.time.LocalDateTime;
 
 public class bankAccount {
 
-    private final String accountName;
+    protected final String accountName;
     private float accountBalance;
-    private final String accountNum=getAlphaNumericString(10);
-    private List<String> transactHistory=new ArrayList<>();
-    private boolean accountClosedStatus=false;
-    private String accountOpeningDate;
-    private  String accountClosingDate;
+    protected final String accountNum=getAlphaNumericString(10);
+    protected List<String> transactHistory=new ArrayList<>();
+    protected boolean accountClosedStatus=false;
+    protected String accountOpeningDate;
+    protected  String accountClosingDate;
 
 
-    private bankAccount(final String name){
+    public bankAccount(final String name){
         this.accountName=name;
         this.accountBalance=0;
         this.accountOpeningDate=getDateTime();
     }
-    private bankAccount(final String name, float balance){
+    public bankAccount(final String name, float balance){
         this.accountName=name;
         this.accountBalance=balance;
         this.accountOpeningDate=getDateTime();
@@ -85,12 +85,12 @@ public class bankAccount {
         List<String> transactions= getTransactHistory();
 
         for(int i=0; i<transactions.size();i++){
-            System.err.println(transactions.get(i));
+            System.out.println(transactions.get(i));
         }
 }
 
 
-    private static String getAlphaNumericString(int n){
+    public static String getAlphaNumericString(int n){
         String createdNum="";
         String AlphaNumericString = "0123456789";
 
@@ -101,7 +101,7 @@ public class bankAccount {
         return createdNum;
 
     }
-    private static String getDateTime(){
+    public static String getDateTime(){
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");  
         LocalDateTime now = LocalDateTime.now();  
         String currentDateTime=dtf.format(now);
@@ -109,30 +109,30 @@ public class bankAccount {
     }
 
 
-    private float getBalance(){
+    public float getBalance(){
         return this.accountBalance;
     }
-    private String getName(){
+    public String getName(){
         return this.accountName;
 
     }
-    private String getAccountNum(){
+    public String getAccountNum(){
         return this.accountNum;
 
     }
-    private List<String> getTransactHistory(){
+    public List<String> getTransactHistory(){
         return this.transactHistory;
 
     }
-    private String getCreationDate(){
+    public String getCreationDate(){
         return this.accountOpeningDate;
 
     }
-    private String getClosingDate(){
+    public String getClosingDate(){
         return accountClosingDate;
 
     }
-    private boolean getClosedStatus(){
+    public boolean getClosedStatus(){
 
         return this.accountClosedStatus;
 

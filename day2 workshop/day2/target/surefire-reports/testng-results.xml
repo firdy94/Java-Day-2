@@ -2,12 +2,12 @@
 <testng-results total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2021-12-03T05:38:38Z" name="Surefire suite" finished-at="2021-12-03T05:38:39Z" duration-ms="28">
+  <suite started-at="2021-12-06T01:10:58Z" name="Surefire suite" finished-at="2021-12-06T01:10:58Z" duration-ms="21">
     <groups>
     </groups>
-    <test started-at="2021-12-03T05:38:38Z" name="Surefire test" finished-at="2021-12-03T05:38:39Z" duration-ms="28">
+    <test started-at="2021-12-06T01:10:58Z" name="Surefire test" finished-at="2021-12-06T01:10:58Z" duration-ms="21">
       <class name="ibf2021.d2.TestNgMavenExampleTest">
-        <test-method signature="exampleOfTestNgMaven()[pri:0, instance:ibf2021.d2.TestNgMavenExampleTest@32709393]" started-at="2021-12-03T13:38:39Z" name="exampleOfTestNgMaven" finished-at="2021-12-03T13:38:39Z" duration-ms="9" status="PASS">
+        <test-method signature="exampleOfTestNgMaven()[pri:0, instance:ibf2021.d2.TestNgMavenExampleTest@32709393]" started-at="2021-12-06T09:10:58Z" name="exampleOfTestNgMaven" finished-at="2021-12-06T09:10:58Z" duration-ms="8" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- exampleOfTestNgMaven -->

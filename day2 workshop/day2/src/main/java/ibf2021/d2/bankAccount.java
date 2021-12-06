@@ -5,7 +5,7 @@ import java.util.List;
 import java.time.format.DateTimeFormatter;  
 import java.time.LocalDateTime; 
 
-public class bankAccount {
+public class BankAccount {
 
     protected final String accountName;
     private float accountBalance;
@@ -16,12 +16,12 @@ public class bankAccount {
     protected  String accountClosingDate;
 
 
-    public bankAccount(final String name){
+    public BankAccount(final String name){
         this.accountName=name;
         this.accountBalance=0;
         this.accountOpeningDate=getDateTime();
     }
-    public bankAccount(final String name, float balance){
+    public BankAccount(final String name, float balance){
         this.accountName=name;
         this.accountBalance=balance;
         this.accountOpeningDate=getDateTime();
@@ -29,8 +29,8 @@ public class bankAccount {
 
 
     public static void main( String[] args ){
-        bankAccount myBank=new bankAccount("Firdaus");
-        bankAccount myBank2=new bankAccount("Firdy");
+        BankAccount myBank=new BankAccount("Firdaus");
+        BankAccount myBank2=new BankAccount("Firdy");
 
 
         myBank.deposit(100);

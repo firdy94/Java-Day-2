@@ -29,13 +29,13 @@ public class BankAccount {
 
 
     public static void main( String[] args ){
-        BankAccount myBank=new BankAccount("Firdaus");
-        BankAccount myBank2=new BankAccount("Firdy");
+        // BankAccount myBank=new BankAccount("Firdaus");
+        // BankAccount myBank2=new BankAccount("Firdy");
 
 
-        myBank.deposit(100);
-        myBank.deposit(200);  
-        myBank.viewTransactions();
+        // myBank.deposit(100);
+        // myBank.deposit(200);  
+        // myBank.viewTransactions();
 
     }
 
@@ -48,8 +48,7 @@ public class BankAccount {
             throw new IllegalArgumentException("Account closed");
         }
         else{
-        String printout= setBalance(value, "deposit");
-        setTransactHistory(printout);
+        setTransactHistory(setBalance(value, "deposit"));
         }
     }
     public void withdraw(float value){

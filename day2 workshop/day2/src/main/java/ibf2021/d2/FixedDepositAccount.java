@@ -1,9 +1,8 @@
 package ibf2021.d2;
 
-import java.io.Console;
 import java.util.Scanner;
 
-public class FixedDepositAccount extends bankAccount {
+public class FixedDepositAccount extends BankAccount {
 
     private float interest=(float) 0.03;
     private int duration=6;
@@ -17,12 +16,12 @@ public class FixedDepositAccount extends bankAccount {
         this.accountBalance=balance;
         
     }
-    public FixedDepositAccount(String name, final float balance,Float interest){
+    public FixedDepositAccount(String name, final float balance,float interest){
         super(name,balance);
         this.interest=interest;
         this.accountBalance=balance;
     }
-    public FixedDepositAccount(String name, final float balance,Float interest, Integer duration){
+    public FixedDepositAccount(String name, final float balance,float interest, int duration){
         super(name,balance);
         this.interest=interest;
         this.duration=duration;
@@ -64,7 +63,7 @@ public class FixedDepositAccount extends bankAccount {
 
     public float getInterest() {
         return this.interest;
-    }
+    } 
     public void setInterest(float interest) throws IllegalArgumentException {
         interest=interest/100;
         if (getInterestChange()>=1){

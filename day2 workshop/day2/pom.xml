@@ -25,6 +25,12 @@
       <version>6.8.8</version>
       <scope>test</scope>
     </dependency>
+  
+    <dependency>
+      <groupId>org.testng</groupId>
+      <artifactId>testng</artifactId>
+      <version>7.0.0</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -51,6 +57,14 @@
         <plugin>
           <artifactId>maven-jar-plugin</artifactId>
           <version>3.0.2</version>
+          <configuration>
+            <archive>
+              <manifest>
+                <addClasspath>true</addClasspath>
+                <mainClass>ibf2021.d2.BankAccount</mainClass>
+              </manifest>
+            </archive>
+          </configuration>
         </plugin>
         <plugin>
           <artifactId>maven-install-plugin</artifactId>

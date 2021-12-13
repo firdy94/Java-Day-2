@@ -1,77 +1,120 @@
 package ibf2021.d2;
 
-import org.testng.Assert;
-import org.testng.annotations.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 
 
 public class TestBankAccount {
 
-    
-    BankAccount testBank1 = new BankAccount("name only");
+    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
+    private final PrintStream originalOut = System.out;
+    private final PrintStream originalErr = System.err;
 
-    BankAccount testBank2= new BankAccount(" name and balance",0);
+@BeforeEach
+public void setUpStreams() {
+    System.setOut(new PrintStream(outContent));
+    System.setErr(new PrintStream(errContent));
+}
 
-    @BeforeTest
-    public void createObjects(){
-        testBank1.deposit(100);
-        testBank2.deposit(100);
-    }
+@AfterEach
+public void restoreStreams() {
+    System.setOut(originalOut);
+    System.setErr(originalErr);
+}
     @Test
-    public void testgetBalance_nameOnly(){
+    public void testgetBalance(){
+        BankAccount testBank1 = new BankAccount("name");
+        testBank1.deposit(200);
         float expectedBalance=200;
         float actualBalance=testBank1.getBalance();
-        Assert.assertEquals(actualBalance, expectedBalance);
+        assertEquals(actualBalance, expectedBalance);
     }
     @Test
-    public void testgetBalance_nameAndBalance(){
-        float expectedBalance=200;
-        float actualBalance=testBank2.getBalance();
-        Assert.assertEquals(actualBalance, expectedBalance);
-    }
-    @Test
-    public void testDeposit_nameOnly_NormalCondition(){
-        float expectedBalance= 200;
+    public void testDeposit_NormalCondition(){
+        BankAccount testBank1 = new BankAccount("name");
+        float expectedBalance= 100;
         testBank1.deposit(100);
         float actualBalance = testBank1.getBalance();
-        Assert.assertEquals(actualBalance, expectedBalance);
+        assertEquals(actualBalance, expectedBalance);
     }
     @Test
-    public void testDeposit_nameandBalance_NormalCondition(){
-        float expectedBalance= 200;
-        testBank2.deposit(100);
-        float actualBalance = testBank2.getBalance();
-        Assert.assertEquals(actualBalance, expectedBalance);
+    public void testDeposit_NegativeCondition(){
+        assertThrows(IllegalArgumentException.class, () -> {
+            BankAccount testBank1 = new BankAccount("name");
+            testBank1.deposit(-100);
+        });
     }
     @Test
-    public void testWithdraw_nameOnly_NormalCondition(){
-        float expectedBalance= 100;
+    public void testWithdraw_NormalCondition(){
+        BankAccount testBank1 = new BankAccount("name");
+        testBank1.deposit(100);
+        float expectedBalance= 0;
         testBank1.withdraw(100);
         float actualBalance = testBank1.getBalance();
-        Assert.assertEquals(actualBalance, expectedBalance);
-        testBank1.deposit(100);
-    }
-   @Test
-    public void testWithdraw_nameAndBalance_NormalCondition(){
-        float expectedBalance= 100;
-        testBank2.withdraw(100);
-        float actualBalance = testBank2.getBalance();
-        Assert.assertEquals(actualBalance, expectedBalance);
-        testBank2.deposit(100);
+        assertEquals(actualBalance, expectedBalance);
     }
     @Test
-    public void testTransactionHistory_nameOnly(){
-        String timestamp= testBank1.getDateTime();
+    public void testWithdraw_OverDraftCondition(){
+        assertThrows(IllegalArgumentException.class, () -> {
+            BankAccount testBank1 = new BankAccount("name");
+            testBank1.withdraw(100);
+        });
+    }
+    @Test
+    public void testWithdraw_NegativeCondition(){
+        assertThrows(IllegalArgumentException.class, () -> {
+            BankAccount testBank1 = new BankAccount("name");
+            testBank1.withdraw(-100);
+        });
+
+    }
+    @Test
+    public void testTransactionHistory(){
+        BankAccount testBank1 = new BankAccount("name");
+        testBank1.deposit(100);
+        String timestamp= BankAccount.getDateTime();
         String expectedString=String.format("Deposit %.6f at<%s %s>",100.00, timestamp.substring(0,10), timestamp.substring(10) );
         String actualString = testBank1.getTransactHistory().get(0);
-        Assert.assertEquals(actualString, expectedString);
+        assertEquals(actualString, expectedString);
     }
     @Test
-    public void testTransactionHistory_nameAndBalance(){
-        String timestamp= testBank2.getDateTime();
-        String expectedString=String.format("Deposit %.6f at<%s %s>",100.00, timestamp.substring(0,10), timestamp.substring(10) );
-        String actualString = testBank2.getTransactHistory().get(0);
-        Assert.assertEquals(actualString, expectedString);
+    public void testcloseAccount_NormalCondition(){
+        BankAccount testBank1 = new BankAccount("name");
+        testBank1.closeAccount();
+        
+        assertEquals(true, testBank1.getClosedStatus());
     }
+    public void testcloseAccount_TwiceCondition(){
+        BankAccount testBank1 = new BankAccount("name");
+        testBank1.closeAccount();
+        testBank1.closeAccount();
+        assertEquals("You account is already closed!", outContent.toString().trim());
+    }
+    public void testcloseAccount_DepositCondition(){
+        assertThrows(IllegalArgumentException.class, () -> {
+            BankAccount testBank1 = new BankAccount("name");
+            testBank1.closeAccount();
+            testBank1.deposit(100); 
+        });
+            }
+    public void testcloseAccount_WithdrawCondition(){
+        assertThrows(IllegalArgumentException.class, () -> {
+            BankAccount testBank1 = new BankAccount("name");
+            testBank1.closeAccount();
+            testBank1.withdraw(100);
+        });
+    }
+
+
 
 
 
